@@ -776,16 +776,16 @@ QuaternionT<T> &QuaternionT<T>::operator*=(const QuaternionT<T> &v)
 // By definition, for a unit quaternion, its inverse equals its conjugate:
 //    q^-1 = conj(q) / |q|^2   (if |q|=1, then q^-1 = conj(q))
 // Quaternion multiplication is non-commutative, so the result of q1 / q2 can follow two conventions:
-// (1) Right division (commonly used in mathematics): q1 / q2 = q1 * q2^-1
-// (2) Left division (engineering convention): q1 / q2 = q2^-1 * q1
-// Both are mathematically valid, but the results differ because q1 * q2^-1 != q2^-1 * q1.
-// Here, we adopt the second convention (left division): q1 / q2 = q2^-1 * q1.
-// The rotation order is different, so the rotational effect also differs.
+// (1) q1 / q2 = q1 * q2^-1
+// (2) q1 / q2 = q2^-1 * q1
+// Both are mathematically valid, but the results differ (q1 * q2^-1 != q2^-1 * q1), 
+// because quaternion multiplication does not satisfy the commutative law.
+// The two definitions correspond to different rotation orders, and thus produce different rotation effects.
+// Here, we use the second definition, following MATLAB: q1 / q2 = q2^-1 * q1.
 // For detailed definitions, see:
 //    https://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/arithmetic/index.htm
 //    https://www.mathworks.com/help/aerotbx/ug/quatdivide.html
-
-
+// Note: We assume q2 is already normalized (a unit quaternion).
 template <typename T>
 QuaternionT<T> QuaternionT<T>::operator/(const QuaternionT<T> &v) const
 {
