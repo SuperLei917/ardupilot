@@ -657,6 +657,13 @@ bool NavEKF3_core::using_extnav_for_yaw() const
     }
 #endif
     return false;
+
+
+    
+
+
+
+    
 }
 
 /*
